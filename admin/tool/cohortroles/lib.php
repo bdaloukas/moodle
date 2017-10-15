@@ -15,20 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version info
- *
- * @package    tool_cohortroles
- * @copyright  2015 Damyon Wiese
+ * @package    tool
+ * @subpackage cohortroles
+ * @copyright  2017 Vasilis Daloukas <bdaloukas@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-
-$plugin->version   = 2017101502; // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2017050500; // Requires this Moodle version.
-$plugin->component = 'tool_cohortroles'; // Full name of the plugin (used for diagnostics).
-
-$plugin->dependencies = array(
-    'tool_lp' => ANY_VERSION
-);
+/**
+ * Callback to remove linked logins for deleted users.
+ *
+ * @param stdClass $user
+ */
+function tool_cohortroles_pre_user_delete($user) {
+    global $DB;
+    $DB->delete_records('tool_cohortroles', ['userid' => $user->id]);
+}
