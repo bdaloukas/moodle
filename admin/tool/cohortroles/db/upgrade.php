@@ -40,13 +40,13 @@ function xmldb_tool_cohortroles_upgrade($oldversion) {
     // Automatically generated Moodle v3.2.0 release upgrade line.
     // Put any upgrade step following this.
 
-    if ($oldversion < 2017101502) {
+    if ($oldversion < 2017101503) {
 
         // Delete "orphaned" cohortroles.
         $sql = "SELECT DISTINCT c.userid
                   FROM {tool_cohortroles} c
                   JOIN {user} u ON u.id = c.userid
-                 WHERE u.deleted=1";echo "$sql<br>";
+                 WHERE u.deleted=1";
         $deletedusers = $DB->get_field_sql($sql);
         if ($deletedusers) {
             list($sql, $params) = $DB->get_in_or_equal($deletedusers);
@@ -54,7 +54,7 @@ function xmldb_tool_cohortroles_upgrade($oldversion) {
         }
 
         // Cohortroles savepoint reached.
-        upgrade_plugin_savepoint(true, 2017101502, 'tool', 'cohortroles');
+        upgrade_plugin_savepoint(true, 2017101503, 'tool', 'cohortroles');
     }
 
     // Automatically generated Moodle v3.3.0 release upgrade line.
